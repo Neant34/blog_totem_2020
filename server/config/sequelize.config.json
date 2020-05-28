@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": 3615,
+    "database": "blog_totem",
+    "host": "127.0.0.1",  
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}

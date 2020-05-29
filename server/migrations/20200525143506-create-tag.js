@@ -1,33 +1,39 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Tag', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+    return queryInterface.createTable(
+      "Tag",
+      {
+        id: {
+          allowNull: false,
+          autoIncrement: true,
+          primaryKey: true,
+          type: Sequelize.INTEGER,
+        },
+        name: {
+          type: Sequelize.TEXT,
+        },
+        createdAt: {
+          allowNull: false,
+          type: Sequelize.DATE,
+        },
+        updatedAt: {
+          allowNull: false,
+          type: Sequelize.DATE,
+        },
       },
-      name: {
-        type: Sequelize.TEXT
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+      {
+        indexes: [
+          {
+            unique: true,
+            fields: ["name"],
+          },
+        ],
       }
-    }, {
-      indexes: [{
-        unique: true,
-        fields: ['name']
-      }]
-    });
+    );
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Tag');
-  }
+    return queryInterface.dropTable("Tag");
+  },
 };

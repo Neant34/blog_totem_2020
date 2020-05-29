@@ -1,10 +1,11 @@
 {
   "development": {
-    "username": "postgres",
-    "password": 3615,
-    "database": "blog_totem",
+    "username": "<YOUR_USER_NAME>",
+    "password": "<YOUR_PASSWORD>",
+    "database": "<YOUR_DATABASE_NAME>",
     "host": "127.0.0.1",  
     "port": 5432,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false
   }
 }

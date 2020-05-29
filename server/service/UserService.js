@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const awsService = require("./awsService");
+const jwtService = require("./jwtService");
 const UserRepository = require("../repository/UserRepository");
 
 module.exports = class UserService {
@@ -61,11 +62,7 @@ module.exports = class UserService {
           message: "Incorrect password!",
         };
       } else {
-        const token = jwt.sign(
-          { userId: user.id, isAdmin: user.isAdmin },
-          "RANDOM_TOKEN_SECRET",
-          { expiresIn: "24h" }
-        );
+        const token = jwtService.sign({ userId: user.id, isAdmin: user.isAdmin });
         return {
           __typename: "Connection",
           id: user.id,

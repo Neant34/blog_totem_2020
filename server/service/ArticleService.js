@@ -1,5 +1,6 @@
 const { ApolloError } = require("apollo-server");
 const { Op } = require("sequelize");
+const db = require("../models/index");
 const awsService = require("./awsService");
 const ArticleRepository = require("../repository/ArticleRepository");
 const TagRepository = require("../repository/TagRepository");
@@ -44,8 +45,10 @@ module.exports = class ArticleService {
       models.Article
     );
     tags.forEach(async (tag) => {
-      tag = tag.toLowerCase();
-      const [newTag, _] = await TagRepository.findOrCreateTag(tag, models.Tag);
+      const [newTag, _] = await TagRepository.findOrCreateTag(
+        tag.toLowerCase(),
+        models.Tag
+      );
       TagArticlesRepository.create(article.id, newTag.id, models.TagArticles);
     });
 
@@ -87,4 +90,15 @@ module.exports = class ArticleService {
         }
       }
     });
+
+  static search = (search, model) =>
+    ArticleRepository.query(
+      'SELECT * FROM "Articles" WHERE lower("Articles"."title") similar to $1',
+      {
+        bind: ["%(" + search.toLowerCase().split(" ").join("|") + ")%"],
+        type: db.sequelize.QueryTypes.SELECT,
+        model: model,
+        mapToModel: true,
+      }
+    );
 };

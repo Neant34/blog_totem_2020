@@ -28,7 +28,6 @@ const typeDefs = gql`
   type Comment {
     id: Int!
     content: String!
-    user: User!
     article: Article!
   }
 
@@ -59,7 +58,7 @@ const typeDefs = gql`
     getUser(id: Int!): User!
     getArticle(id: Int!): Article!
     getAllUsers: [User!]!
-    getAllArticles: [Article]
+    getAllArticles: [Article!]!
     getTag(name: String!): Tag!
     getAllTags: [Tag!]!
   }
@@ -95,6 +94,8 @@ const typeDefs = gql`
     createComment(content: String!, articleId: Int!): Comment!
     updateComment(id: Int!, content: String!): Comment!
     deleteComment(id: Int!): Boolean
+
+    query(search: String!): [Article!]
   }
 `;
 

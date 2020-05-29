@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const typeDefs = require("./schema");
 const resolvers = require("./resolvers");
 const models = require("./server/models");
+const jwtService = require("./server/service/jwtService");
 
 const server = new ApolloServer({
   typeDefs,
@@ -17,7 +18,7 @@ const server = new ApolloServer({
       authToken = req.headers.authorization;
 
       if (authToken) {
-        user = jwt.verify(authToken, "RANDOM_TOKEN_SECRET");
+        user = jwtService.verify(authToken);
       }
     } catch (e) {
       console.warn(`Unable to authenticate using auth token: ${authToken}`);

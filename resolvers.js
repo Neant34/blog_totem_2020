@@ -19,7 +19,6 @@ module.exports = {
   },
 
   Comment: {
-    user: (parent, _0, _1) => parent.getUser(),
     article: (parent, _0, _1) => parent.getArticle(),
   },
 
@@ -116,6 +115,11 @@ module.exports = {
     deleteComment: authenticated(
       async (_0, { id }, { models, user }) =>
         await CommentService.deleteComment(id, models.Comment, user)
+    ),
+
+    query: authenticated(
+      async (_0, { search }, { models }) =>
+        await ArticleService.search(search, models.Article)
     ),
   },
 };

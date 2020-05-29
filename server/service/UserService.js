@@ -62,7 +62,10 @@ module.exports = class UserService {
           message: "Incorrect password!",
         };
       } else {
-        const token = jwtService.sign({ userId: user.id, isAdmin: user.isAdmin });
+        const token = jwtService.sign({
+          userId: user.id,
+          isAdmin: user.isAdmin,
+        });
         return {
           __typename: "Connection",
           id: user.id,
